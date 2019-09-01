@@ -1,8 +1,8 @@
 <img src="https://i.imgur.com/zMLdPRt.png" width="20%">
 
-# Dollarr
+#Dollarr
 
-This was made in a week back in May 2019 and proposed to [OwlGaming](https://www.owlgaming.net/) (A Multi Theft Auto game server).
+This was made in a week back in May 2019 and proposed to [OwlGaming](https://www.owlgaming.net) (A Multi Theft Auto game server).
 
 The site would have allowed characters to be able to transfer money between each other anonymously for whatever in-character reasons they wanted. It is fully functioning from signing up to making and approving deposits and sending the money to different addresses.
 
