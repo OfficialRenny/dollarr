@@ -1,0 +1,49 @@
+extends ../layouts/default
+
+block content
+	.container: .jumbotron
+		.container-fluid
+			.page-intro
+				h1 #{greeting} #{user.name.first}, your current balance is #{numeral(user.balance).format('$0,0[.]00')}.
+				p Here you can transfer Dollarr funds from your wallet to another address.
+			.page-content
+				form(method='post', id='transferForm', action='/transfer', autocomplete='off', novalidate)
+					.form-groups
+						input(type='hidden', name='reqtype', value='transfer')
+						.form-group
+							label(for='amount') Target Address
+							input(type='text', name='target_address', placeholder='Address', required, class='form-control')
+						.form-group
+							label(for='amount') Amount
+							input(type='number', name='amount', placeholder='Amount', min='0', required, class='form-control')
+						.form-group
+							label(for='message') Message
+							textarea(form='transferForm', name='message', rows='4', style='width:100%', placeholder='Message (Optional, maximum length of 250 characters.)', maxlength='250')
+					br
+					button(type='submit', class='btn btn-block btn-secondary-1-base btn-submit') Transfer
+			hr.my-4
+			div.container.table-responsive
+				if transfers.length > 0
+					table(class='table table-striped table-hover table-condensed', id='datatable', style='width:100%')
+						thead
+							tr
+								th Timestamp
+								th Type
+								th From
+								th To
+								th Amount
+								th Message
+						tbody
+							each transfer in transfers
+								tr
+									td #{moment(transfer.creationDate).format("YYYY-MM-DD HH:mm:ss")}
+									if transfer.fromAddress == user.address
+										td Outgoing
+									else
+										td Incoming
+									td #{transfer.fromAddress}
+									td #{transfer.toAddress}
+									td #{numeral(transfer.amount).format('$0,0[.]00')}
+									td #{transfer.message}
+				else
+					h3 Your transfer history is empty!

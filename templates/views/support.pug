@@ -1,0 +1,41 @@
+extends ../layouts/default
+
+include ../mixins/flash-messages
+include ../mixins/faq
+
+block content
+	.container: .jumbotron
+		h1 Support
+		hr
+		h3 FAQ
+		div.panel-group(id="accordion" role="tablist" aria-multiselectable="true")
+			+faq('What is Dollarr?', 'Dollarr is a brand new platform that allows you transfer money anonymously to both friends and strangers.<br>It was started up by (( character name here )) in May 2019 as a his final project for a BSc degree in Computer Science. ', 'collapseOne')
+			+faq('Is Dollarr free?', 'For the most part, yes! While transferring and withdrawing is free and incur no fees, however, depositing has a fee of 7.5% per deposit (rounded to the nearest dollar). <br>Loyal members may apply to have their fees reduced after multiple successful transactions.<br>Businesses based in Los Santos could also apply for a corporate wallet with 0% fees as well as the option for a simpler address which would make it easy to transfer funds to the business. The cost of corporate wallets depends on the size of the business and their customer base.', 'collapseTwo')
+			+faq('How do I deposit?', 'After you have signed in, you may access the <a href="/deposit">deposit</a> page where you will be prompted to enter the amount you would like to deposit and the transaction ID (( and a link to a screenshot of the transfer, for proof )). The deposit will go through a manual approval process and has a waiting period and may take up to 1-2 business days. Once your deposit has been approved you will then be able to freely transfer or withdraw those funds.', 'collapseThree')
+			+faq('How do I withdraw?', 'Once you have signed in, you will be able to access the <a href="/withdraw">withdraw</a> page where you will be simply prompted to input an amount that you would like to withdraw then you simply submit.', 'anotherCollapse')
+			+faq('How do I transfer funds?', 'After you have made an account and have signed in, you go to the transfer page and fill out all of the fields (Address of the user you want to transfer to, the amount and an optional message to go with the transfer) and providing you have sufficent credit, the transfer will go through instantly.', 'yetAnotherCollapse')
+		hr.my-4
+		if enquirySubmitted
+			h3 Thanks for getting in touch.
+		else
+			h3 Contact Us
+			.row: .col-sm-8.col-md-6
+				form(method='post')
+					input(type='hidden', name='action', value='contact')
+					.form-group()
+						label Name
+						input(type='text', name='name.full', value=formData['name.full']).form-control
+					.form-group()
+						label Email (( Forum Name ))
+						input(type='text', name='email', value=formData.email).form-control
+					.form-group()
+						label What are you contacting us about?
+						select(name='enquiryType').form-control
+							option(value='') (select one)
+							each type in enquiryTypes
+								option(value=type.value, selected=formData.enquiryType == type.value)= type.label
+					.form-group()
+						label Message
+						textarea(name='message', placeholder='Leave us a message...' rows=4).form-control= formData.message
+					.form-actions
+						button(type='submit').btn.btn-secondary-1-base Send

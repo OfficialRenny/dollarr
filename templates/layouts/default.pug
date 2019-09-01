@@ -1,0 +1,58 @@
+include ../mixins/flash-messages
+include ../mixins/auth-forms
+
+doctype html
+html
+
+	//- HTML HEAD
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		
+		title= page.title
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(href="/styles/custom.css", rel="stylesheet")
+		link(rel='stylesheet', type='text/css', href='https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-html5-1.5.6/r-2.2.2/sc-2.0.0/datatables.min.css')
+		block css
+		block head
+
+	//- HTML BODY
+	body.custom-gradient
+		-
+			var greetings = ["Hello", "Welcome", "Hey", "Hello there"]
+			var greeting = greetings[Math.floor(Math.random() * greetings.length)]
+			
+		.site-wrapper.has-sticky-footer
+			
+			//- SITE HEADER
+			include header
+			
+			//- SITE BODY
+			block body
+				main.site-body(role='main')
+
+					block intro
+
+					block flash-messages
+						+flash-messages(messages)
+
+					block content
+						
+			//- SITE FOOTER
+			block footer
+				include footer
+
+
+	//- JAVASCRIPT
+
+	script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
+	script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous")
+	script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous")
+	script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js')
+	script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js')
+	script(type='text/javascript', src='https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-html5-1.5.6/r-2.2.2/sc-2.0.0/datatables.min.js')
+
+	script.
+		$(document).ready(function() {
+			$('#datatable').DataTable();
+		} );

@@ -1,0 +1,8 @@
+mixin faq(q, a, id)
+	div(class="panel panel-default")
+		div(class="panel-heading mb-1", role="tab", id="heading"+id)
+			h6(class='panel-title')
+				a(class="collapsed", role="button", title="", data-toggle="collapse", data-parent="#accordion", href="#collapse"+id, aria-expanded="true", aria-controls="collapse"+id) #{q}
+		div(id="collapse"+id, class="panel-collapse collapse", role="tabpanel", aria-labelledby="heading"+id)
+			div(class='panel-body px-3 mb-2')
+				p!= a

@@ -1,0 +1,9 @@
+extends ../layouts/default
+
+block content
+	.container: .jumbotron
+		.container-fluid
+			.page-intro
+				h2 Join Dollarr
+			.page-content
+				+auth-forms({ modal: false, initial: 'signup' })
